@@ -5,7 +5,7 @@
  * Version:		0.1
  * Author:		Johan Nordström
  * Author URI:	https://www.thehiveresistance.com
- * Text Domain:	wst
+ * Text Domain:	ww
  * Domain Path:	/languages
  */
 
