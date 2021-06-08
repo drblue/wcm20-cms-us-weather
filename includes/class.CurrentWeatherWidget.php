@@ -36,7 +36,11 @@ class CurrentWeatherWidget extends WP_Widget {
 		}
 
 		// render output
-		echo "<p>HERE BE DRAGONS 🐉!</p>";
+		if (!empty($instance['location'])) {
+			echo "<p>HERE BE DRAGONS in {$instance['location']} 🐉!</p>";
+		} else {
+			echo "<p>NO DRAGONS 😢🐉</p>";
+		}
 
 		// end widget
 		echo $args['after_widget'];
@@ -56,6 +60,11 @@ class CurrentWeatherWidget extends WP_Widget {
 			? $instance['title']
 			: get_option('ww_default_title', __('Current Weather', 'ww'));
 
+		// do we have a location set? if so, use it, otherwise set location to null
+		$location = isset($instance['location'])
+			? $instance['location']
+			: null;
+
 		?>
 			<!-- title -->
 			<p>
@@ -67,6 +76,19 @@ class CurrentWeatherWidget extends WP_Widget {
 					name="<?php echo $this->get_field_name('title') ?>"
 					type="text"
 					value="<?php echo $title; ?>"
+				>
+			</p>
+
+			<!-- location -->
+			<p>
+				<label for="<?php echo $this->get_field_id('location') ?>">Location:</label>
+
+				<input
+					class="widefat"
+					id="<?php echo $this->get_field_id('location') ?>"
+					name="<?php echo $this->get_field_name('location') ?>"
+					type="text"
+					value="<?php echo $location; ?>"
 				>
 			</p>
 		<?php
@@ -87,6 +109,10 @@ class CurrentWeatherWidget extends WP_Widget {
 		$instance['title'] = (!empty($new_instance['title']))
 			? strip_tags($new_instance['title'])
 			: '';
+
+		$instance['location'] = (!empty($new_instance['location']))
+			? strip_tags($new_instance['location'])
+			: null;
 
 		return $instance;
 	}
