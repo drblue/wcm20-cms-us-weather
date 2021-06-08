@@ -15,3 +15,8 @@ if (!function_exists('pre')) {
 function ww_get_owm_appid() {
 	return WW_OWM_APPID;
 }
+
+function ww_enqueue_styles() {
+	wp_enqueue_style('wcm20-weather-styles', WW_PLUGIN_URL . "assets/css/wcm20-weather.css", [], "0.1", "screen");
+}
+add_action('wp_enqueue_scripts', 'ww_enqueue_styles');

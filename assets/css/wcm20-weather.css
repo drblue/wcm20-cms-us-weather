@@ -1,0 +1,12 @@
+/**
+ * Styles for WCM20 Weather Plugin
+ */
+
+.current-weather {
+	font-size: 1.5em;
+	text-align: center;
+}
+
+.current-weather-temperature {
+	font-weight: 700;
+}
