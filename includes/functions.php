@@ -11,3 +11,7 @@ if (!function_exists('pre')) {
 		return sprintf("<pre>%s</pre>", print_r($obj, true));
 	}
 }
+
+function ww_get_owm_appid() {
+	return WW_OWM_APPID;
+}
