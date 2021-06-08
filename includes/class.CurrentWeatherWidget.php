@@ -37,9 +37,13 @@ class CurrentWeatherWidget extends WP_Widget {
 
 		// render output
 		if (!empty($instance['location'])) {
-			echo "<p>HERE BE DRAGONS in {$instance['location']} 🐉!</p>";
+
+			echo "<p>Should get current weather for '{$instance['location']}'</p>";
+
 		} else {
-			echo "<p>NO DRAGONS 😢🐉</p>";
+
+			echo "<p><em>No location is set for this widget.</em></p>";
+
 		}
 
 		// end widget

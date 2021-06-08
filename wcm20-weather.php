@@ -10,6 +10,7 @@
  */
 
 define('WW_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('WW_OWM_APPID', 'a9f6719e37f20890ebff5d91724dec1f');
 
 /**
  * Include dependencies.
