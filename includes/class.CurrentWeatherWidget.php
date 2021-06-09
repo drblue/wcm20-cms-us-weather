@@ -51,6 +51,21 @@ class CurrentWeatherWidget extends WP_Widget {
 				 */
 				?>
 					<div class="current-weather">
+						<div class="current-weather-conditions">
+							<?php foreach($weather['conditions'] as $condition) : ?>
+								<div class="current-weather-condition">
+									<img
+										src="<?php echo $condition['image']; ?>"
+										class="img-fluid"
+										alt="<?php echo $condition['description']; ?>"
+										title="<?php echo $condition['description']; ?>"
+									>
+
+									<?php echo $condition['main']; ?>
+								</div>
+							<?php endforeach; ?>
+						</div>
+
 						<div class="current-weather-temperature">
 							<?php echo $weather['temperature']; ?>&deg;C
 						</div>

@@ -42,8 +42,26 @@ function owm_get_current_weather($location) {
 		$data['wind_speed'] = $payload->wind->speed;
 		$data['wind_direction'] = $payload->wind->deg;
 
+		/*
+		$data['conditions'] = [];
+		foreach ($payload->weather as $weather) {
+			array_push($data['conditions'], [
+				'main' => $weather->main,
+				'description' => $weather->description,
+				'image' => "https://openweathermap.org/img/wn/{$weather->icon}@2x.png",
+			]);
+		}
+		*/
+		$data['conditions'] = array_map(function($weather) {
+			return [
+				'main' => $weather->main,
+				'description' => $weather->description,
+				'image' => "https://openweathermap.org/img/wn/{$weather->icon}@2x.png",
+			];
+		}, $payload->weather);
+
 		// 6. Cache data for location
-		set_transient($transient_key, $data, 10 * MINUTE_IN_SECONDS);
+		// set_transient($transient_key, $data, 10 * MINUTE_IN_SECONDS);
 	}
 
 	// 7. Return data to caller
