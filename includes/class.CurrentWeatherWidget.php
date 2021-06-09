@@ -41,10 +41,34 @@ class CurrentWeatherWidget extends WP_Widget {
 			// get current weather for location
 			$weather = owm_get_current_weather($instance['location']);
 			if ($weather) {
+				/**
+				 *	$data['temperature'] = $payload->main->temp;
+				 *	$data['feels_like'] = $payload->main->feels_like;
+				 *	$data['humidity'] = $payload->main->humidity;
+				 *	$data['cloudiness'] = $payload->clouds->all;
+				 *	$data['wind_speed'] = $payload->wind->speed;
+				 *	$data['wind_direction'] = $payload->wind->deg;
+				 */
 				?>
 					<div class="current-weather">
 						<div class="current-weather-temperature">
 							<?php echo $weather['temperature']; ?>&deg;C
+						</div>
+
+						<div class="current-weather-feels-like">
+							<span class="label">Feels like:</span> <?php echo $weather['feels_like']; ?>&deg;C
+						</div>
+
+						<div class="current-weather-humidity">
+							<span class="label">Humidity:</span> <?php echo $weather['humidity']; ?>&percnt;
+						</div>
+
+						<div class="current-weather-cloudiness">
+							<span class="label">Cloudiness:</span> <?php echo $weather['cloudiness']; ?>&percnt;
+						</div>
+
+						<div class="current-weather-wind">
+							<span class="label">Wind:</span> <?php echo $weather['wind_speed']; ?> m/s in <?php echo $weather['wind_direction']; ?>&deg;
 						</div>
 					</div>
 				<?php

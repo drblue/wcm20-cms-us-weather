@@ -19,6 +19,11 @@ function owm_get_current_weather($location) {
 	// 4. Extract needed data
 	$data = [];
 	$data['temperature'] = $payload->main->temp;
+	$data['feels_like'] = $payload->main->feels_like;
+	$data['humidity'] = $payload->main->humidity;
+	$data['cloudiness'] = $payload->clouds->all;
+	$data['wind_speed'] = $payload->wind->speed;
+	$data['wind_direction'] = $payload->wind->deg;
 
 	// 5. Return data to caller
 	return $data;
