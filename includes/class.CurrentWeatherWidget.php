@@ -40,14 +40,17 @@ class CurrentWeatherWidget extends WP_Widget {
 
 			// get current weather for location
 			$weather = owm_get_current_weather($instance['location']);
-
-			?>
-				<div class="current-weather">
-					<div class="current-weather-temperature">
-						<?php echo $weather['temperature']; ?>&deg;C
+			if ($weather) {
+				?>
+					<div class="current-weather">
+						<div class="current-weather-temperature">
+							<?php echo $weather['temperature']; ?>&deg;C
+						</div>
 					</div>
-				</div>
-			<?php
+				<?php
+			} else {
+				?><p><em>Error retrieving weather for this location.</em></p><?php
+			}
 
 		} else {
 
