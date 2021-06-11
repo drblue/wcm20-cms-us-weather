@@ -9,7 +9,7 @@ function owm_get_json($url) {
 
 	// Make sure we got a valid response
 	if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
-		return false;
+		return $response;
 	}
 
 	// Fetch body and decode it
@@ -33,6 +33,11 @@ function owm_get_current_weather($location) {
 		// 4. Get current weather from OpenWeatherMap's API
 		$payload = owm_get_json("https://api.openweathermap.org/data/2.5/weather?q={$location}&units=metric&appid=" . ww_get_owm_appid());
 
+		// 4.1. Bail if error
+		if (is_wp_error($payload)) {
+			return $payload;
+		}
+
 		// 5. Extract needed data
 		$data = [];
 		$data['temperature'] = $payload->main->temp;
@@ -43,16 +48,7 @@ function owm_get_current_weather($location) {
 		$data['wind_direction'] = $payload->wind->deg;
 		$data['last_updated'] = $payload->dt;
 
-		/*
-		$data['conditions'] = [];
-		foreach ($payload->weather as $weather) {
-			array_push($data['conditions'], [
-				'main' => $weather->main,
-				'description' => $weather->description,
-				'image' => "https://openweathermap.org/img/wn/{$weather->icon}@2x.png",
-			]);
-		}
-		*/
+		// 5.1. transform weather-conditions
 		$data['conditions'] = array_map(function($weather) {
 			return [
 				'main' => $weather->main,
