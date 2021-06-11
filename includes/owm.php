@@ -33,9 +33,12 @@ function owm_get_current_weather($location) {
 		// 4. Get current weather from OpenWeatherMap's API
 		$payload = owm_get_json("https://api.openweathermap.org/data/2.5/weather?q={$location}&units=metric&appid=" . ww_get_owm_appid());
 
-		// 4.1. Bail if error
-		if (is_wp_error($payload)) {
-			return $payload;
+		// Make sure we get a valid response
+		if (is_wp_error($payload) || (!is_object($payload) && wp_remote_retrieve_response_code($payload) !== 200)) {
+			return [
+				'success' => false,
+				'error' => wp_remote_retrieve_response_code($payload), // 404
+			];
 		}
 
 		// 5. Extract needed data
@@ -62,5 +65,8 @@ function owm_get_current_weather($location) {
 	}
 
 	// 7. Return data to caller
-	return $data;
+	return [
+		'success' => true,
+		'data' => $data
+	];
 }

@@ -39,8 +39,9 @@ class CurrentWeatherWidget extends WP_Widget {
 		if (!empty($instance['location'])) {
 
 			// get current weather for location
-			$weather = owm_get_current_weather($instance['location']);
-			if ($weather) {
+			$weather_response = owm_get_current_weather($instance['location']);
+			if ($weather_response['success']) {
+				$weather = $weather_response['data'];
 				/**
 				 *	$data['temperature'] = $payload->main->temp;
 				 *	$data['feels_like'] = $payload->main->feels_like;
