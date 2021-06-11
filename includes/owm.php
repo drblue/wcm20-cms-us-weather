@@ -41,6 +41,7 @@ function owm_get_current_weather($location) {
 		$data['cloudiness'] = $payload->clouds->all;
 		$data['wind_speed'] = $payload->wind->speed;
 		$data['wind_direction'] = $payload->wind->deg;
+		$data['last_updated'] = $payload->dt;
 
 		/*
 		$data['conditions'] = [];

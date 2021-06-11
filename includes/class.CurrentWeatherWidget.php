@@ -85,6 +85,10 @@ class CurrentWeatherWidget extends WP_Widget {
 						<div class="current-weather-wind">
 							<span class="label">Wind:</span> <?php echo $weather['wind_speed']; ?> m/s in <?php echo $weather['wind_direction']; ?>&deg;
 						</div>
+
+						<div class="current-weather-last-updated">
+							<span class="label">Last updated:</span> <?php echo strftime('%Y-%m-%d %H:%M:%S', $weather['last_updated']); ?> UTC
+						</div>
 					</div>
 				<?php
 			} else {
