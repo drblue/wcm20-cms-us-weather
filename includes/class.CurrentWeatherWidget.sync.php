@@ -38,11 +38,63 @@ class CurrentWeatherWidget extends WP_Widget {
 		// render output
 		if (!empty($instance['location'])) {
 
-			?>
-				<div class="current-weather" data-location="<?php echo $instance['location']; ?>">
-					<div class="loading">Loading weather for <?php echo $instance['location']; ?>...</div>
-				</div>
-			<?php
+			// get current weather for location
+			$weather_response = owm_get_current_weather($instance['location']);
+			if ($weather_response['success']) {
+				$weather = $weather_response['data'];
+				/**
+				 *	$data['temperature'] = $payload->main->temp;
+				 *	$data['feels_like'] = $payload->main->feels_like;
+				 *	$data['humidity'] = $payload->main->humidity;
+				 *	$data['cloudiness'] = $payload->clouds->all;
+				 *	$data['wind_speed'] = $payload->wind->speed;
+				 *	$data['wind_direction'] = $payload->wind->deg;
+				 */
+				?>
+					<div class="current-weather">
+						<div class="current-weather-conditions">
+							<?php foreach($weather['conditions'] as $condition) : ?>
+								<div class="current-weather-condition">
+									<img
+										src="<?php echo $condition['image']; ?>"
+										class="img-fluid"
+										alt="<?php echo $condition['description']; ?>"
+										title="<?php echo $condition['description']; ?>"
+									>
+
+									<?php echo $condition['main']; ?>
+								</div>
+							<?php endforeach; ?>
+						</div>
+
+						<div class="current-weather-temperature">
+							<?php echo $weather['temperature']; ?>&deg;C
+						</div>
+
+						<div class="current-weather-feels-like">
+							<span class="label">Feels like:</span> <?php echo $weather['feels_like']; ?>&deg;C
+						</div>
+
+						<div class="current-weather-humidity">
+							<span class="label">Humidity:</span> <?php echo $weather['humidity']; ?>&percnt;
+						</div>
+
+						<div class="current-weather-cloudiness">
+							<span class="label">Cloudiness:</span> <?php echo $weather['cloudiness']; ?>&percnt;
+						</div>
+
+						<div class="current-weather-wind">
+							<span class="label">Wind:</span> <?php echo $weather['wind_speed']; ?> m/s in <?php echo $weather['wind_direction']; ?>&deg;
+						</div>
+
+						<div class="current-weather-last-updated">
+							<span class="label">Last updated:</span> <?php echo strftime('%Y-%m-%d %H:%M:%S', $weather['last_updated']); ?> UTC
+						</div>
+					</div>
+				<?php
+			} else {
+				?><p><em>Error retrieving weather for this location.</em></p><?php
+			}
 
 		} else {
 
