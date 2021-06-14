@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: WCM20 Weather 0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wcm20-"
 "weather\n"
-"POT-Creation-Date: 2021-06-14T11:08:08+02:00\n"
-"PO-Revision-Date: 2021-06-14 11:08+0200\n"
+"POT-Creation-Date: 2021-06-14T11:14:04+02:00\n"
+"PO-Revision-Date: 2021-06-14 11:14+0200\n"
 "Last-Translator: Johan Nordström <johan@digitalvillage.se>\n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -50,8 +50,15 @@ msgstr "Ingen plats satt för den här widgeten."
 msgid "Current Weather"
 msgstr "Aktuellt väder"
 
+#: includes/functions.php:26
+msgid "Feels like"
+msgstr "Känns som"
+
+#: includes/functions.php:27
+msgid "Humidity"
+msgstr "Luftfuktighet"
+
 #. translators: Location
-#: includes/functions.php:50
-#| msgid "Could not get current weather for location %s 😢"
+#: includes/functions.php:52
 msgid "Could not get current weather for location %s"
 msgstr "Kunde inte hämta aktuellt väder från platsen %s"

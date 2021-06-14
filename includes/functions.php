@@ -22,6 +22,10 @@ function ww_enqueue_styles() {
 	wp_enqueue_script('wcm20-weather', WW_PLUGIN_URL . "assets/js/wcm20-weather.js", [], "0.1", true);
 	wp_localize_script('wcm20-weather', 'ww_settings', [
 		'ajax_url' => admin_url('admin-ajax.php'),
+		'messages' => [
+			'feels_like' => __('Feels like', 'wcm20-weather'),
+			'humidity' => __('Humidity', 'wcm20-weather'),
+		],
 	]);
 }
 add_action('wp_enqueue_scripts', 'ww_enqueue_styles');

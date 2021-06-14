@@ -27,7 +27,10 @@
 							${res.data.temperature}&deg;C
 						</div>
 						<div class="current-weather-feels-like">
-							<span class="label">Feels like:</span> ${res.data.feels_like}&deg;C
+							<span class="label">${ww_settings.messages.feels_like}:</span> ${res.data.feels_like}&deg;C
+						</div>
+						<div class="current-weather-humidity">
+							<span class="label">${ww_settings.messages.humidity}:</span> ${res.data.humidity}&percnt;
 						</div>
 					`;
 				} else {
