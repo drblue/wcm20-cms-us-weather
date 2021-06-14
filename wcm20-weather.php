@@ -5,7 +5,7 @@
  * Version:		0.1
  * Author:		Johan Nordström
  * Author URI:	https://www.thehiveresistance.com
- * Text Domain:	ww
+ * Text Domain:	wcm20-weather
  * Domain Path:	/languages
  */
 

@@ -43,7 +43,13 @@ function ww_ajax_get_current_weather() {
 
 	// did we get current weather?
 	if (!$weather_response['success']) {
-		wp_send_json_error("Could not get current weather for location {$location} 😢");
+		$msg = sprintf(
+			/* translators: Location */
+			__('Could not get current weather for location %s', 'wcm20-weather'),
+			$location
+		);
+
+		wp_send_json_error($msg);
 	}
 
 	// respond with current weather
@@ -51,3 +57,31 @@ function ww_ajax_get_current_weather() {
 }
 add_action('wp_ajax_ww_get_current_weather', 'ww_ajax_get_current_weather');
 add_action('wp_ajax_nopriv_ww_get_current_weather', 'ww_ajax_get_current_weather');
+
+/**
+ * Initialize plugin.
+ *
+ * @return void
+ */
+function ww_plugin_loaded() {
+	// Load plugin translations
+	load_plugin_textdomain('wcm20-weather', false, WW_PLUGIN_DIR . 'languages/');
+}
+add_action('plugins_loaded', 'ww_plugin_loaded');
+
+
+/**
+ * Override loading of textdomain for this plugin.
+ *
+ * @param string $mofile
+ * @param string $domain
+ * @return string
+ */
+function ww_load_textdomain($mofile, $domain) {
+	if ($domain === 'wcm20-weather' && strpos($mofile, WP_LANG_DIR . '/plugins/') !== false) {
+		$locale = apply_filters('plugin_locale', determine_locale(), $domain);
+		$mofile = WW_PLUGIN_DIR . 'languages/' . $domain . '-' . $locale . '.mo';
+	}
+	return $mofile;
+}
+add_filter('load_textdomain_mofile', 'ww_load_textdomain', 10, 2);

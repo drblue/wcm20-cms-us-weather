@@ -40,13 +40,21 @@ class CurrentWeatherWidget extends WP_Widget {
 
 			?>
 				<div class="current-weather" data-location="<?php echo $instance['location']; ?>">
-					<div class="loading">Loading weather for <?php echo $instance['location']; ?>...</div>
+					<div class="loading">
+						<?php
+							printf(
+								/* translators: Location */
+								__('Loading weather for %s...', 'wcm20-weather'),
+								$instance['location']
+							);
+						?>
+					</div>
 				</div>
 			<?php
 
 		} else {
 
-			echo "<p><em>No location is set for this widget.</em></p>";
+			echo "<p><em>" . __('No location is set for this widget.', 'wcm20-weather') . "</em></p>";
 
 		}
 
@@ -66,7 +74,7 @@ class CurrentWeatherWidget extends WP_Widget {
 		// do we have a title set? if so, use it, otherwise set empty title
 		$title = isset($instance['title'])
 			? $instance['title']
-			: get_option('ww_default_title', __('Current Weather', 'ww'));
+			: get_option('ww_default_title', __('Current Weather', 'wcm20-weather'));
 
 		// do we have a location set? if so, use it, otherwise set location to null
 		$location = isset($instance['location'])
